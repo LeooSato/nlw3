@@ -14,7 +14,7 @@ import { LeafletMouseEvent } from "leaflet";
 export default function CreateOrphanage() {
   const history = useHistory();
 
-  const [position, setPosition] = useState({ latitude: 0, longitude: 0});
+  const [position, setPosition] = useState({ latitude: 0 , longitude: 0});
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
   const [instructions, setInstructions] = useState('');
@@ -93,7 +93,7 @@ export default function CreateOrphanage() {
             >
               <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}required/>
 
-              {position.latitude !== 0 && (
+              {position.latitude != 0 && (
                 <Marker 
                   interactive={false} 
                   icon={mapIcon} 

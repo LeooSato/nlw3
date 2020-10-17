@@ -27,13 +27,10 @@ interface Orphanage{
 interface Orphanagesparams{
   id:string;
 }
-
 export default function Orphanage() {
-
-
-  
   const params = useParams<Orphanagesparams>();
   const [orphanage, setOrphanage] = useState<Orphanage>();
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   
 
@@ -48,11 +45,11 @@ api.get(`orphanages/${params.id}`).then(response => {
 if(!orphanage){
   return <p>Carregando...</p>
 }
-/*if (orphanage.open_on_weekends == true) {
+if (orphanage.open_on_weekends == true) {
    var owaw = 'Segunda a Segunda';
 }
 else {var owaw ='Segunda a Sexta'};
-*/
+
 
 
 
@@ -63,12 +60,15 @@ else {var owaw ='Segunda a Sexta'};
 
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[0].url} alt={orphanage.name} />
+          <img src={orphanage.images[activeImageIndex].url} alt={orphanage.name}  />
 
           <div className="images">
-            {orphanage.images.map(image =>{
+          { orphanage.images.map( (image, index) => {
                     return(
-                      <button className="active" key={image.id}type="button">
+                      <button key={image.id} className={activeImageIndex === index ? 'active' : ''}
+                      type="button"
+                      onClick={() => {
+                        setActiveImageIndex(index);}}>
                       <img src={image.url} alt={orphanage.name} />
                     </button>
                     )
@@ -111,7 +111,7 @@ else {var owaw ='Segunda a Sexta'};
             <div className="open-details">
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
-               Horarios de atendimentos  <br />
+                {owaw}  <br />
                 {orphanage.opening_hours}
               </div>
 {orphanage.open_on_weekends ? (              <div className="open-on">
